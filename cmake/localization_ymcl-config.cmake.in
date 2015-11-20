@@ -1,0 +1,54 @@
+# Localization_YMCL CMake config file
+#
+# This file sets the following variables:
+# Localization_YMCL_FOUND - Always TRUE.
+# Localization_YMCL_INCLUDE_DIRS - Directories containing the Localization_YMCL include files.
+# Localization_YMCL_IDL_DIRS - Directories containing the Localization_YMCL IDL files.
+# Localization_YMCL_LIBRARIES - Libraries needed to use Localization_YMCL.
+# Localization_YMCL_DEFINITIONS - Compiler flags for Localization_YMCL.
+# Localization_YMCL_VERSION - The version of Localization_YMCL found.
+# Localization_YMCL_VERSION_MAJOR - The major version of Localization_YMCL found.
+# Localization_YMCL_VERSION_MINOR - The minor version of Localization_YMCL found.
+# Localization_YMCL_VERSION_REVISION - The revision version of Localization_YMCL found.
+# Localization_YMCL_VERSION_CANDIDATE - The candidate version of Localization_YMCL found.
+
+message(STATUS "Found Localization_YMCL-@PROJECT_VERSION@")
+set(Localization_YMCL_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(Localization_YMCL_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(Localization_YMCL_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(Localization_YMCL_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(Localization_YMCL_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(Localization_YMCL_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(Localization_YMCL_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(Localization_YMCL_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(Localization_YMCL_VERSION @PROJECT_VERSION@)
+set(Localization_YMCL_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(Localization_YMCL_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(Localization_YMCL_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(Localization_YMCL_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Sugar Sweet Robotics:Navigation:Localization_YMCL:2.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="Localization_YMCL" rtc:updateDate="2015-11-07T01:42:38+09:00" rtc:creationDate="2014-09-05T12:51:51+09:00" rtc:version="2.0.0" rtc:vendor="Sugar Sweet Robotics" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Localization YMCL Component" rtc:category="Navigation" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="Localization_YMCL">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="GPLv3" rtcDoc:creator="" rtcDoc:algorithm="" rtcDoc:inout="range: Ranger data. odometry: odometry position estimation of robot. mapServer: see MapServer rt-component." rtcDoc:description="Localization RT-component using Monte Carlo Localization. This RT-component uses MRPT. See http://mrpt.org. To build this RT-component, install mrpt-1.2.0."/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+    </rtc:BasicInfo>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true"/>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAction xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnModeChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:ConfigurationSet>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_pose_x" rtc:unit="meter" rtc:defaultValue="0" rtc:type="string" rtc:name="initial_pose_x">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Initial pose of robot" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_pose_y" rtc:unit="meter" rtc:defaultValue="0" rtc:type="float" rtc:name="initial_pose_y">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Initial pose of robot" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_pose_phi" rtc:unit="" rtc:defaultValue="0" rtc:type="float" rtc:name="initial_pose_phi">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Initial pose of robot" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_particle_min_x" rtc:unit="meter" rtc:defaultValue="-0.3" rtc:type="float" rtc:name="initial_particle_min_x">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="minimum value range of initial particle position (This is added to initial position)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_particle_max_x" rtc:unit="meter" rtc:defaultValue="0.3" rtc:type="float" rtc:name="initial_particle_max_x">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="maximum value range of initial particle position (This is added to initial position)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_particle_min_y" rtc:unit="meter" rtc:defaultValue="-0.3" rtc:type="float" rtc:name="initial_particle_min_y">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="minimum value range of initial particle position (This is added to initial position)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_particle_max_y" rtc:unit="meter" rtc:defaultValue="0.3" rtc:type="float" rtc:name="initial_particle_max_y">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="maximum value range of initial particle position (This is added to initial position)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_particle_min_phi" rtc:unit="" rtc:defaultValue="-0.3" rtc:type="float" rtc:name="initial_particle_min_phi">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="minimum value range of initial particle position (This is added to initial position)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_particle_max_phi" rtc:unit="radian" rtc:defaultValue="0.3" rtc:type="float" rtc:name="initial_particle_max_phi">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="maximum value range of initial particle position (This is added to initial position)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="initial_particle_count" rtc:unit="" rtc:defaultValue="1000" rtc:type="string" rtc:name="initial_particle_count">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Initial particle count " rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="3.0" rtc:type="float" rtc:name="poseTimeOut">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Timeout threshold [sec] of odometry port." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="motion_model" rtc:unit="" rtc:defaultValue="Gausian" rtc:type="string" rtc:name="motion_model">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>Thrun</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>Gausian</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Type name for Motion model. &lt;br/&gt;&lt;br/&gt;http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="motion_alpha1" rtc:unit="" rtc:defaultValue="0.01" rtc:type="float" rtc:name="motion_alpha1">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameter of motion_model.&lt;br/&gt;&lt;br/&gt;http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="motion_alpha2" rtc:unit="" rtc:defaultValue="0.05729" rtc:type="float" rtc:name="motion_alpha2">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameter of motion_model.&lt;br/&gt;&lt;br/&gt;http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="motion_alpha3" rtc:unit="" rtc:defaultValue="0.01745" rtc:type="float" rtc:name="motion_alpha3">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameter of motion_model.&lt;br/&gt;&lt;br/&gt;http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="motion_alpha4" rtc:unit="" rtc:defaultValue="0.05" rtc:type="float" rtc:name="motion_alpha4">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameter of motion_model.&lt;br/&gt;&lt;br/&gt;http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="motion_std_XY" rtc:unit="" rtc:defaultValue="0.01" rtc:type="float" rtc:name="motion_std_XY">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameter for Motion model. &lt;br/&gt;if motion_model is Gausian, this is Sigma_min&lt;br/&gt;if motion_model is Thrun, this is additional noise parameter.&lt;br/&gt;http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="motion_std_PHI" rtc:unit="" rtc:defaultValue="0.003490" rtc:type="float" rtc:name="motion_std_PHI">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameter for Motion model. &lt;br/&gt;if motion_model is Gausian, this is Sigma_min&lt;br/&gt;if motion_model is Thrun, this is additional noise parameter.&lt;br/&gt;http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_likelihoodMethod" rtc:unit="" rtc:defaultValue="lmLikelihoodField_Thrun" rtc:type="string" rtc:name="LM_likelihoodMethod">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>lmLikelihoodField_Thrun</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>lmLikelihoodField_II</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>lmRayTracing</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>lmCellsDifference</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>lmConsensus</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>lmConsensusOWA</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>lmMeanInformation</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="The selected method to compute an observation likelihood.&lt;br/&gt;&lt;br/&gt;http://www.mrpt.org/tutorials/programming/maps-for-localization-slam-map-building/occupancy_grids/#42_Observations_likelihood" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_enableLikelihoodCache" rtc:unit="" rtc:defaultValue="true" rtc:type="string" rtc:name="LM_enableLikelihoodCache">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>true</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>false</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Enables the usage of a cache of likelihood values (for LF methods), if set to true (default=true)." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_LF_decimation" rtc:unit="" rtc:defaultValue="5" rtc:type="int" rtc:name="LM_LF_decimation">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="[LikelihoodField] The laser range &quot;sigma&quot; used in computations; Default value = 0.35" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_LF_stdHit" rtc:unit="" rtc:defaultValue="0.35" rtc:type="float" rtc:name="LM_LF_stdHit">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="The laser range &quot;sigma&quot; used in computations; Default value = 0.35" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_LF_zRandom" rtc:unit="" rtc:defaultValue="0.05" rtc:type="float" rtc:name="LM_LF_zRandom">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Ratios of the hit/random components of the likelihood; Default values=0.05" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_LF_alternateAverageMethod" rtc:unit="" rtc:defaultValue="false" rtc:type="string" rtc:name="LM_LF_alternateAverageMethod">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>true</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>false</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description=" Set this to &quot;true&quot; ot use an alternative method, where the likelihood of the whole range scan is computed by &quot;averaging&quot; of individual ranges, instead of by the &quot;product&quot;. Default = false " rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_LF_zHit" rtc:unit="" rtc:defaultValue="0.95" rtc:type="float" rtc:name="LM_LF_zHit">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Ratios of the hit/random components of the likelihood; Default values=0.95" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_LF_maxCorrsDistance" rtc:unit="" rtc:defaultValue="0.3" rtc:type="float" rtc:name="LM_LF_maxCorrsDistance">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description=" The max. distance for searching correspondences around each sensed point default  0.3" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_LF_maxRange" rtc:unit="meter" rtc:defaultValue="81" rtc:type="float" rtc:name="LM_LF_maxRange">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="The max. range of the sensor (def=81meters)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_MI_exponent" rtc:unit="" rtc:defaultValue="2.5" rtc:type="float" rtc:name="LM_MI_exponent">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description=" The exponent in the MI likelihood computation. Default value = 2.5" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_MI_ratio_max_distance" rtc:unit="" rtc:defaultValue="1.5" rtc:type="float" rtc:name="LM_MI_ratio_max_distance">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="[MI] The ratio for the max. distance used in the MI computation and in the insertion of scans, e.g. if set to 2.0 the MI will use twice the distance that the update distance. def=1.5  " rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_MI_skip_rays" rtc:unit="" rtc:defaultValue="10" rtc:type="float" rtc:name="LM_MI_skip_rays">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="The scan rays decimation: at every N rays, one will be used to compute the MI: def=10" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_consensus_pow" rtc:unit="" rtc:defaultValue="5" rtc:type="float" rtc:name="LM_consensus_pow">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description=" The power factor for the likelihood (default=5)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_consensus_takeEachRange" rtc:unit="" rtc:defaultValue="1" rtc:type="int" rtc:name="LM_consensus_takeEachRange">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="The down-sample ratio of ranges (default=1, consider all the ranges)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_rayTracing_stdHit" rtc:unit="" rtc:defaultValue="1.0" rtc:type="float" rtc:name="LM_rayTracing_stdHit">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="[rayTracing] The laser range sigma. def=1.0" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_rayTracing_decimation" rtc:unit="" rtc:defaultValue="10" rtc:type="int" rtc:name="LM_rayTracing_decimation">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="One out of &quot;rayTracing_decimation&quot; rays will be simulated and compared only: set to 1 to use all the sensed ranges. def=10" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="LM_rayTracing_useDistanceFilter" rtc:unit="" rtc:defaultValue="true" rtc:type="string" rtc:name="LM_rayTracing_useDistanceFilter">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>true</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>false</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="If true (default), the rayTracing method will ignore measured ranges shorter than the simulated ones." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_algorithm" rtc:unit="" rtc:defaultValue="pfStandardProposal" rtc:type="string" rtc:name="PF_algorithm">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>pfStandardProposal</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>pfAuxiliaryPFStandard</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>pfOptimalProposal</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>pfAuxiliaryPFOptimal</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Sequential Importance Resampling – SIR (pfStandardProposal)&lt;br/&gt;Standard proposal distribution + weights according to likelihood function.&lt;br/&gt;Auxiliary Particle Filter – APF (pfAuxiliaryPFStandard)&lt;br/&gt;This method was introduced by Pitt and Shephard in 1999 [1]&lt;br/&gt;Optimal Sampling (pfOptimalProposal)&lt;br/&gt;Use the exact optimal proposal distribution (where available!, usually this will perform approximations). In the case of the RBPF-SLAM implementation, this method follows [2]&lt;br/&gt; Approximate Optimal Sampling (pfAuxiliaryPFOptimal)&lt;br/&gt;Use the optimal proposal and a auxiliary particle filter (see paper [3] ).&lt;br/&gt;See : http://www.mrpt.org/tutorials/programming/statistics-and-bayes-filtering/particle_filter_algorithms/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_resamplingMethod" rtc:unit="" rtc:defaultValue="prMultinomial" rtc:type="string" rtc:name="PF_resamplingMethod">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>prMultinomial</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>prResidual</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>prStratified</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>prSystematic</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Setting of resampling method.&lt;br/&gt;&lt;br/&gt;See: http://www.mrpt.org/tutorials/programming/statistics-and-bayes-filtering/resampling_schemes/" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_BETA" rtc:unit="" rtc:defaultValue="0.5" rtc:type="float" rtc:name="PF_BETA">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="The resampling of particles will be performed when ESS (in range [0,1]) &lt; BETA (default is 0.5)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_powFactor" rtc:unit="" rtc:defaultValue="1.0" rtc:type="float" rtc:name="PF_powFactor">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="An optional step to &quot;smooth&quot; dramatic changes in the observation model to affect the variance of the particle weights, eg weight*=likelihood^powFactor (default=1 = no effects).   " rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_sampleSize" rtc:unit="" rtc:defaultValue="1" rtc:type="string" rtc:name="PF_sampleSize">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="The initial number of particles in the filter (it can change only if adaptiveSampleSize=true) (default=1)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_adaptiveSampleSize" rtc:unit="" rtc:defaultValue="true" rtc:type="string" rtc:name="PF_adaptiveSampleSize">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="A flag that indicates whether the CParticleFilterCapable object should perform adative sample size (default=true)." rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_max_loglikelihood_dyn_range" rtc:unit="" rtc:defaultValue="15" rtc:type="double" rtc:name="PF_max_loglikelihood_dyn_range">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Only for PF_algorithm=pfAuxiliaryPFOptimal: If a given particle has a max_likelihood (from the a-priori estimate) below the maximum from all the samples - This is done to assure that the rejection sampling doesn't get stuck in an infinite loop trying to get an acceptable sample.  Default = 15 (in logarithmic likelihood)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_AuxFilterOptimal_MaximumSearchSamples" rtc:unit="" rtc:defaultValue="100" rtc:type="int" rtc:name="PF_AuxFilterOptimal_MaximumSearchSamples">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="In the algorithm &quot;CParticleFilter::pfAuxiliaryPFOptimal&quot; (and in &quot;CParticleFilter::pfAuxiliaryPFStandard&quot; only if pfAuxFilterStandard_FirstStageWeightsMonteCarlo = true) the number of samples for searching the maximum likelihood value and also to estimate the &quot;first stage weights&quot; (see papers!) (default=100) " rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_AuxFilterStandard_FirstStageWeightsMonteCarlo" rtc:unit="" rtc:defaultValue="false" rtc:type="string" rtc:name="PF_AuxFilterStandard_FirstStageWeightsMonteCarlo">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>true</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>false</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Only for PF_algorithm==pfAuxiliaryPFStandard:  If false, the APF will predict the first stage weights just at the mean of the prior of the next time step.  If true, these weights will be estimated as described in the papers for the &quot;pfAuxiliaryPFOptimal&quot; method, i.e. through a monte carlo simulation.  In that case, &quot;pfAuxFilterOptimal_MaximumSearchSamples&quot; is the number of MC samples used.  " rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="PF_AuxFilterOptimal_MLE" rtc:unit="" rtc:defaultValue="false" rtc:type="string" rtc:name="PF_AuxFilterOptimal_MLE">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>true</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>false</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="(Default=false) In the algorithm &quot;CParticleFilter::pfAuxiliaryPFOptimal&quot;, if set to true, do not perform rejection sampling, but just the most-likely (ML) particle found in the preliminary weight-determination stage. " rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="KLD_binSize_PHI" rtc:unit="" rtc:defaultValue="0.01" rtc:type="float" rtc:name="KLD_binSize_PHI">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="KLD_binSize_XY" rtc:unit="" rtc:defaultValue="0.01" rtc:type="float" rtc:name="KLD_binSize_XY">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="KLD_delta" rtc:unit="" rtc:defaultValue="0.02" rtc:type="float" rtc:name="KLD_delta">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="KLD_epsilon" rtc:unit="" rtc:defaultValue="0.02" rtc:type="float" rtc:name="KLD_epsilon">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="KLD_maxSampleSize" rtc:unit="" rtc:defaultValue="1000" rtc:type="int" rtc:name="KLD_maxSampleSize">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="KLD_minSampleSize" rtc:unit="" rtc:defaultValue="150" rtc:type="int" rtc:name="KLD_minSampleSize">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="KLD_minSamplesPerBin" rtc:unit="" rtc:defaultValue="0" rtc:type="double" rtc:name="KLD_minSamplesPerBin">
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)" rtcDoc:defaultValue="" rtcDoc:dataname=""/>
+            <rtcExt:Properties rtcExt:value="text" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+    </rtc:ConfigurationSet>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="range" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::RangeData" rtc:name="range" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Range Sensor Data (usually, LiDAR)"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="odometry" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedPose2D" rtc:name="odometry" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Robot position. Usually, estimated with encoders."/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="estimatedPose" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedPose2D" rtc:name="estimatedPose" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="" rtcDoc:description="Estimated pose output."/>
+    </rtc:DataPorts>
+    <rtc:ServicePorts xsi:type="rtcExt:serviceport_ext" rtcExt:position="LEFT" rtc:name="mapServer">
+        <rtc:ServiceInterface xsi:type="rtcExt:serviceinterface_ext" rtcExt:variableName="motion" rtc:path="C:\Users\ysuga\.wasanbon\idl" rtc:type="RTC::OGMapServer" rtc:idlFile="C:\Users\ysuga\.wasanbon\idl\MobileRobot.idl" rtc:instanceName="mapServer" rtc:direction="Required" rtc:name="mapServer">
+            <rtcDoc:Doc rtcDoc:docPostCondition="" rtcDoc:docPreCondition="" rtcDoc:docException="" rtcDoc:docReturn="" rtcDoc:docArgument="" rtcDoc:description="Map Server Interface"/>
+        </rtc:ServiceInterface>
+    </rtc:ServicePorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+</rtc:RtcProfile>

@@ -1,0 +1,195 @@
+Localization_YMCLName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+Localization_YMCL uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``Localization_YMCLComp`` executable. The ``Localization_YMCL`` library
+is available for loading into a manager, using the initialisation function
+``Localization_YMCLInit``.
+
+From source
+-----------
+
+Follow these steps to install Localization_YMCL from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf Localization_YMCL-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd Localization_YMCL-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+Localization_YMCL can be launched in stand-alone mode by executing the
+``Localization_YMCLComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libLocalization_YMCL.so`` can be loaded into a manager, using the
+initialisation function ``Localization_YMCLInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+initial_pose_x   string             0                Initial pose of robot
+initial_pose_y   float              0                Initial pose of robot
+initial_pose_phi float              0                Initial pose of robot
+initial_particle_min_x float              -0.3             minimum value range of initial particle position (This is added to initial position)
+initial_particle_max_x float              0.3              maximum value range of initial particle position (This is added to initial position)
+initial_particle_min_y float              -0.3             minimum value range of initial particle position (This is added to initial position)
+initial_particle_max_y float              0.3              maximum value range of initial particle position (This is added to initial position)
+initial_particle_min_phi float              -0.3             minimum value range of initial particle position (This is added to initial position)
+initial_particle_max_phi float              0.3              maximum value range of initial particle position (This is added to initial position)
+initial_particle_count string             1000             Initial particle count 
+poseTimeOut      float              3.0              Timeout threshold [sec] of odometry port.
+motion_model     string             Gausian          Type name for Motion model. <br/><br/>http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/
+motion_alpha1    float              0.01             Parameter of motion_model.<br/><br/>http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/
+motion_alpha2    float              0.05729          Parameter of motion_model.<br/><br/>http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/
+motion_alpha3    float              0.01745          Parameter of motion_model.<br/><br/>http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/
+motion_alpha4    float              0.05             Parameter of motion_model.<br/><br/>http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/
+motion_std_XY    float              0.01             Parameter for Motion model. <br/>if motion_model is Gausian, this is Sigma_min<br/>if motion_model is Thrun, this is additional noise parameter.<br/>http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/
+motion_std_PHI   float              0.003490         Parameter for Motion model. <br/>if motion_model is Gausian, this is Sigma_min<br/>if motion_model is Thrun, this is additional noise parameter.<br/>http://www.mrpt.org/tutorials/programming/odometry-and-motion-models/probabilistic_motion_models/
+LM_likelihoodMethod string             lmLikelihoodField_Thrun The selected method to compute an observation likelihood.<br/><br/>http://www.mrpt.org/tutorials/programming/maps-for-localization-slam-map-building/occupancy_grids/#42_Observations_likelihood
+LM_enableLikelihoodCache string             true             Enables the usage of a cache of likelihood values (for LF methods), if set to true (default=true).
+LM_LF_decimation int                5                [LikelihoodField] The laser range "sigma" used in computations; Default value = 0.35
+LM_LF_stdHit     float              0.35             The laser range "sigma" used in computations; Default value = 0.35
+LM_LF_zRandom    float              0.05             Ratios of the hit/random components of the likelihood; Default values=0.05
+LM_LF_alternateAverageMethod string             false             Set this to "true" ot use an alternative method, where the likelihood of the whole range scan is computed by "averaging" of individual ranges, instead of by the "product". Default = false 
+LM_LF_zHit       float              0.95             Ratios of the hit/random components of the likelihood; Default values=0.95
+LM_LF_maxCorrsDistance float              0.3               The max. distance for searching correspondences around each sensed point default  0.3
+LM_LF_maxRange   float              81               The max. range of the sensor (def=81meters)
+LM_MI_exponent   float              2.5               The exponent in the MI likelihood computation. Default value = 2.5
+LM_MI_ratio_max_distance float              1.5              [MI] The ratio for the max. distance used in the MI computation and in the insertion of scans, e.g. if set to 2.0 the MI will use twice the distance that the update distance. def=1.5  
+LM_MI_skip_rays  float              10               The scan rays decimation: at every N rays, one will be used to compute the MI: def=10
+LM_consensus_pow float              5                 The power factor for the likelihood (default=5)
+LM_consensus_takeEachRange int                1                The down-sample ratio of ranges (default=1, consider all the ranges)
+LM_rayTracing_stdHit float              1.0              [rayTracing] The laser range sigma. def=1.0
+LM_rayTracing_decimation int                10               One out of "rayTracing_decimation" rays will be simulated and compared only: set to 1 to use all the sensed ranges. def=10
+LM_rayTracing_useDistanceFilter string             true             If true (default), the rayTracing method will ignore measured ranges shorter than the simulated ones.
+PF_algorithm     string             pfStandardProposal Sequential Importance Resampling – SIR (pfStandardProposal)<br/>Standard proposal distribution + weights according to likelihood function.<br/>Auxiliary Particle Filter – APF (pfAuxiliaryPFStandard)<br/>This method was introduced by Pitt and Shephard in 1999 [1]<br/>Optimal Sampling (pfOptimalProposal)<br/>Use the exact optimal proposal distribution (where available!, usually this will perform approximations). In the case of the RBPF-SLAM implementation, this method follows [2]<br/> Approximate Optimal Sampling (pfAuxiliaryPFOptimal)<br/>Use the optimal proposal and a auxiliary particle filter (see paper [3] ).<br/>See : http://www.mrpt.org/tutorials/programming/statistics-and-bayes-filtering/particle_filter_algorithms/
+PF_resamplingMethod string             prMultinomial    Setting of resampling method.<br/><br/>See: http://www.mrpt.org/tutorials/programming/statistics-and-bayes-filtering/resampling_schemes/
+PF_BETA          float              0.5              The resampling of particles will be performed when ESS (in range [0,1]) < BETA (default is 0.5)
+PF_powFactor     float              1.0              An optional step to "smooth" dramatic changes in the observation model to affect the variance of the particle weights, eg weight*=likelihood^powFactor (default=1 = no effects).   
+PF_sampleSize    string             1                The initial number of particles in the filter (it can change only if adaptiveSampleSize=true) (default=1)
+PF_adaptiveSampleSize string             true             A flag that indicates whether the CParticleFilterCapable object should perform adative sample size (default=true).
+PF_max_loglikelihood_dyn_range double             15               Only for PF_algorithm=pfAuxiliaryPFOptimal: If a given particle has a max_likelihood (from the a-priori estimate) below the maximum from all the samples - This is done to assure that the rejection sampling doesn't get stuck in an infinite loop trying to get an acceptable sample.  Default = 15 (in logarithmic likelihood)
+PF_AuxFilterOptimal_MaximumSearchSamples int                100              In the algorithm "CParticleFilter::pfAuxiliaryPFOptimal" (and in "CParticleFilter::pfAuxiliaryPFStandard" only if pfAuxFilterStandard_FirstStageWeightsMonteCarlo = true) the number of samples for searching the maximum likelihood value and also to estimate the "first stage weights" (see papers!) (default=100) 
+PF_AuxFilterStandard_FirstStageWeightsMonteCarlo string             false            Only for PF_algorithm==pfAuxiliaryPFStandard:  If false, the APF will predict the first stage weights just at the mean of the prior of the next time step.  If true, these weights will be estimated as described in the papers for the "pfAuxiliaryPFOptimal" method, i.e. through a monte carlo simulation.  In that case, "pfAuxFilterOptimal_MaximumSearchSamples" is the number of MC samples used.  
+PF_AuxFilterOptimal_MLE string             false            (Default=false) In the algorithm "CParticleFilter::pfAuxiliaryPFOptimal", if set to true, do not perform rejection sampling, but just the most-likely (ML) particle found in the preliminary weight-determination stage. 
+KLD_binSize_PHI  float              0.01             Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)
+KLD_binSize_XY   float              0.01             Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)
+KLD_delta        float              0.02             Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)
+KLD_epsilon      float              0.02             Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)
+KLD_maxSampleSize int                1000             Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)
+KLD_minSampleSize int                150              Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)
+KLD_minSamplesPerBin double             0                Parameters for the KLD adaptive sample size algorithm (see Dieter Fox's papers)
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+range           InPort      RTC::RangeData                 Range Sensor Data (usually, LiDAR)
+odometry        InPort      RTC::TimedPose2D               Robot position. Usually, estimated with encoders.
+estimatedPose   OutPort     RTC::TimedPose2D               Estimated pose output.
+mapServer       ServicePort RTC::OGMapServer               Map Server Interface
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/Localization_YMCL/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+

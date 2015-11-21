@@ -494,7 +494,7 @@ RTC::ReturnCode_t Localization_YMCL::onDeactivated(RTC::UniqueId ec_id)
 }
 
 
-CvPoint& positionToPixel(RTC::OGMap& map, double x, double y) {
+CvPoint positionToPixel(RTC::OGMap& map, double x, double y) {
 	double zoomFactor = 1.0;
 	return cvPoint((int)(zoomFactor* (x + map.config.origin.position.x) / map.config.xScale),
 		-(int)(zoomFactor* (y + map.config.origin.position.y) / map.config.yScale));
